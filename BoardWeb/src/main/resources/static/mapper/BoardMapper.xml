@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.smhrd.mapper.BoardMapper">
+
+  <select id="getList" resultType="kr.smhrd.entity.Board">
+     select * from tblBoard order by idx desc
+  </select>
+
+  <insert id="insert" parameterType="kr.smhrd.entity.Board">
+    insert into tblBoard(memId, title, content, writer)
+    values(#{memId}, #{title},#{content},#{writer})
+  </insert>
+  
+  <select id="read" resultType="kr.smhrd.entity.Board">
+    select * from tblBoard where idx=#{idx}
+  </select>  
+  
+  <delete id="delete">
+    delete from tblBoard where idx=#{idx}
+  </delete>
+  
+  <update id="update" parameterType="kr.smhrd.entity.Board">
+   update tblBoard set title=#{title},content=#{content}
+   where idx=#{idx}
+  </update>
+    
+</mapper>
