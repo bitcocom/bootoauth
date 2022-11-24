@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class AuthorStatistic {
     
 	private String authorName;
-	private int bookCount;
+	private Long bookCount;
 	
 }

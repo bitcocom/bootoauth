@@ -21,7 +21,7 @@ public class QBook extends EntityPathBase<Book> {
 
     public final NumberPath<Integer> bookId = createNumber("bookId", Integer.class);
 
-    public final StringPath idbn = createString("idbn");
+    public final StringPath isbn = createString("isbn");
 
     public final StringPath name = createString("name");
 

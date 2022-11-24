@@ -20,7 +20,7 @@ public class QAuthor extends EntityPathBase<Author> {
 
     public static final QAuthor author = new QAuthor("author");
 
-    public final NumberPath<Integer> auhorId = createNumber("auhorId", Integer.class);
+    public final NumberPath<Integer> authorId = createNumber("authorId", Integer.class);
 
     public final ListPath<Book, QBook> books = this.<Book, QBook>createList("books", Book.class, QBook.class, PathInits.DIRECT2);
 
