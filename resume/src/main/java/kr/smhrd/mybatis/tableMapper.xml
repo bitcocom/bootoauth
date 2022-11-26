@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mybatis.tableMapper">
+  
+    <insert id="table1" parameterType="Table1VO">
+       insert into table1(num, lcode, mnum, sdate, student, smajor, scong) values( 
+       #{num},
+       #{lcode},
+       #{mnum},
+       #{sdate},
+       #{student},
+       #{smajor},
+       #{scong}
+       )    
+    </insert>
+
+   <select id="getStudentByNumTable1" parameterType="Integer" resultType="SuperVO">
+        select * from resume r LEFT OUTER JOIN table1 t1 ON r.num=t1.num where r.num=#{num}
+   </select> 
+   <select id="getStudentByNumTable2" parameterType="Integer" resultType="SuperVO2">
+         select * from resume r LEFT OUTER JOIN table2 t2 ON r.num=t2.num where r.num=#{num}
+   </select> 
+   <select id="getStudentByNumTable3" parameterType="Integer" resultType="SuperVO3">
+       select * from resume r LEFT OUTER JOIN table3 t3 ON r.num=t3.num where r.num=#{num}
+   </select> 
+   
+   <select id="getStudentByNumTable4" parameterType="Integer" resultType="SuperVO4">
+       select * from resume r LEFT OUTER JOIN table4 t4 ON r.num=t4.num where r.num=#{num}
+   </select> 
+   
+     <select id="getStudentByNumTable5" parameterType="Integer" resultType="SuperVO5">
+       select * from resume r LEFT OUTER JOIN table5 t5 ON r.num=t5.num where r.num=#{num}
+   </select>
+   
+   <select id="getStudentByNumTable6" parameterType="Integer" resultType="SuperVO6">
+       select * from resume r LEFT OUTER JOIN table6 t6 ON r.num=t6.num where r.num=#{num}
+   </select>
+   
+    <select id="getStudentByNumTable7" parameterType="Integer" resultType="SuperVO7">
+       select * from resume r LEFT OUTER JOIN table7 t7 ON r.num=t7.num where r.num=#{num}
+   </select>
+   
+   <delete id="table1Del" parameterType="Integer">
+       delete from table1 where tnum=#{tnum}
+   </delete>   
+   
+   <delete id="table2Del" parameterType="Integer">
+       delete from table2 where tnum2=#{tnum2}
+   </delete>
+   
+    <delete id="table3Del" parameterType="Integer">
+       delete from table3 where tnum3=#{tnum3}
+   </delete>
+   
+   <delete id="table4Del" parameterType="Integer">
+       delete from table4 where tnum4=#{tnum4}
+   </delete>
+   
+   <delete id="table5Del" parameterType="Integer">
+       delete from table5 where tnum5=#{tnum5}
+   </delete>
+   
+    <delete id="table6Del" parameterType="Integer">
+       delete from table6 where tnum6=#{tnum6}
+   </delete>
+   
+   <delete id="table7Del" parameterType="Integer">
+       delete from table7 where tnum7=#{tnum7}
+   </delete>
+   
+    <insert id="table2" parameterType="Table2VO">
+       insert into table2(num, lcode, mnum, sdate2, company2, sjob2, sconti2) values( 
+       #{num},
+       #{lcode},
+       #{mnum},
+       #{sdate2},
+       #{company2},
+       #{sjob2},
+       #{sconti2}
+       )    
+    </insert>
+    
+     <insert id="table3" parameterType="Table3VO">
+       insert into table3(num, lcode, mnum, sdate3, scourse3, sname3) values( 
+       #{num},
+       #{lcode},
+       #{mnum},
+       #{sdate3},
+       #{scourse3},
+       #{sname3}
+       )    
+    </insert>
+    
+       <insert id="table4" parameterType="Table4VO">
+       insert into table4(num, lcode, mnum, sdate4, scert4, ssihang4) values(
+       #{num},
+       #{lcode},
+       #{mnum},
+       #{sdate4},
+       #{scert4},
+       #{ssihang4}
+       )    
+    </insert>
+    
+    <insert id="table5" parameterType="Table5VO">
+       insert into table5(num, lcode, mnum, skill5, slevel5, scontent5) values(
+       #{num},
+       #{lcode},
+       #{mnum},
+       #{skill5},
+       #{slevel5},
+       #{scontent5}
+       )    
+    </insert>
+    
+      <insert id="table6" parameterType="Table6VO">
+       insert into table6(num, lcode, mnum, sdate6, stitle6, scontent6) values( 
+       #{num},
+       #{lcode},
+       #{mnum},
+       #{sdate6},
+       #{stitle6},
+       #{scontent6}
+       )    
+    </insert>
+    
+     <insert id="table7" parameterType="Table7VO">
+       insert into table7(num, lcode, mnum, scontent7) values(
+       #{num},
+       #{lcode},
+       #{mnum},
+       #{scontent7}
+       )    
+    </insert>
+    
+    <update id="table7_1" parameterType="Table7VO">
+        update table7 set scontent7=#{scontent7} where num=#{num}
+    </update>
+    
+     <select id="table7Bynum" resultType="Table7VO" parameterType="Table7VO">
+           select * from table7 where num=#{num}
+     </select>
+    
+   <delete id="table1delete" parameterType="McourseVO">
+        delete from table1 where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+   <delete id="table2delete" parameterType="McourseVO">
+        delete from table2 where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+   <delete id="table3delete" parameterType="McourseVO">
+        delete from table3 where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+   <delete id="table4delete" parameterType="McourseVO">
+        delete from table4 where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+   <delete id="table5delete" parameterType="McourseVO">
+        delete from table5 where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+   <delete id="table6delete" parameterType="McourseVO">
+        delete from table6 where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+    <delete id="table7delete" parameterType="McourseVO">
+        delete from table7 where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+ </mapper>

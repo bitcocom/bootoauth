@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mybatis.memberMapper">
+  
+    <insert id="memberInsert" parameterType="ResumeVO">
+       insert into resume(lcode, mnum, name, ssn, tel, email, sex, birth, college, major) values( 
+       #{lcode},
+       #{mnum},
+       #{name},
+       #{ssn},
+       #{tel},
+       #{email},
+       #{sex},
+       #{birth},
+       #{college},
+       #{major}
+       )    
+    </insert>
+   <select id="memberList" resultType="ResumeVO" parameterType="ResumeVO">
+       select * from resume where lcode=#{lcode} and mnum=#{mnum} order by name
+   </select>
+   
+   <select id="lcourseLoad" resultType="LcourseVO">
+       select * from lcourse        
+   </select>
+   
+    <select id="mcourseLoad" resultType="McourseVO" parameterType="String">
+       select * from mcourse m, lcourse l where m.lcode=#{lcode} and m.lcode=l.lcode         
+   </select>
+   
+      <select id="mcourselist" resultType="McourseVO" parameterType="Integer">
+       select * from mcourse where mnum=#{mnum}         
+   </select>
+   
+   <select id="mcourseLoadall" resultType="McourseVO">
+       select * from mcourse order by lcode        
+   </select>
+   
+   
+     <update id="memberisdata" parameterType="ResumeVO">
+          update mcourse set isdata='YES' where mnum=#{mnum}          
+     </update>
+      
+     <update id="memberismeet" parameterType="ResumeVO">
+          update mcourse set ismeet='YES' where mnum=#{mnum}          
+     </update>
+     
+     <update id="state1update" parameterType="ResumeVO">
+          update resume set state1=#{state1} where num=#{num}          
+     </update>
+    
+      <update id="state2update" parameterType="ResumeVO">
+          update resume set state2=#{state2} where num=#{num}          
+     </update>
+     
+    <select id="getName" resultType="McourseVO" parameterType="McourseVO">
+          select * from mcourse where lcode=#{lcode} and mnum=#{mnum}         
+    </select>
+    
+    <update id="updateTime" parameterType="McourseVO">
+          update mcourse set istime=#{istime} where lcode=#{lcode} and mnum=#{mnum}         
+    </update>
+      
+      <update id="uploadImageFile" parameterType="ResumeVO">
+          update resume set image=#{image} where num=#{num}          
+     </update>
+
+      <select id="sangdam" resultType="SangdamVO" parameterType="Integer">
+       select * from sangdam  where num=#{num} order by snum asc    
+   </select>
+     <insert id="sanginsert" parameterType="SangdamVO">
+       insert into sangdam(num, lcode, mnum, sdate,scontent,sname,cert) values( 
+       #{num},
+       #{lcode},
+       #{mnum},
+       now(),
+       #{scontent},
+       #{sname},
+       #{cert}
+       )    
+    </insert>
+    
+    <update id="dataupdate" parameterType="McourseVO">
+          update mcourse set isdata='NO', istime='NO' where mnum=#{mnum}          
+    </update>
+   
+    <delete id="datadelete" parameterType="McourseVO">
+        delete from resume where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+    <delete id="sangdamdelete" parameterType="McourseVO">
+        delete from sangdam where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+         
+     <delete id="careerdelete" parameterType="McourseVO">
+        delete from career where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+<!--     <update id="sangdamno" parameterType="McourseVO">
+          update mcourse set ismeet='NO' where mnum=#{mnum}          
+    </update> -->
+    
+    <select id="getStudentByNum" resultType="ResumeCareerVO" parameterType="Integer">
+       select * from resume where num=#{num}       
+   </select>
+   
+    <update id="certInsert" parameterType="ResumeVO">
+       update resume set cert=#{cert} where num=#{num}          
+    </update>
+   
+    
+    <select id="count" parameterType="ResumeVO" resultType="ResumeVO">
+        select num, count(scontent) as cnt from (
+          select r.num, s.scontent from resume r, sangdam s where r.num=s.num and r.lcode=s.lcode and r.mnum=s.mnum order by r.name
+        )alias group by num     
+    </select>
+    
+    <delete id="sangdeletenum" parameterType="SangdamVO">
+        delete from sangdam where num=#{num} and snum=#{snum}
+    </delete>
+    
+    <insert id="courseinsert" parameterType="McourseVO">
+       insert into mcourse(lcode,mname,mday,mold,msu,mmaster,mta,mlocation)
+        values(#{lcode}, #{mname}, #{mday}, #{mold},  #{msu}, #{mmaster} , #{mta}, #{mlocation})      
+    </insert>
+    
+     <delete id="mdelete" parameterType="McourseVO">
+        delete from mcourse where mnum=#{mnum}
+    </delete>
+    
+    <update id="state1updateYES" parameterType="Integer">
+          update mcourse set msu1=msu1+1 where mnum=#{mnum}          
+    </update>
+    
+    <update id="state1updateNO" parameterType="Integer">
+           update mcourse set msu1=msu1-1 where mnum=#{mnum}           
+    </update>
+    
+           <update id="state2updateYES" parameterType="Integer">
+           update mcourse set msu2=msu2+1 where mnum=#{mnum}         
+    </update>
+    
+             <update id="state2updateNO" parameterType="Integer">
+        update mcourse set msu2=msu2-1 where mnum=#{mnum}             
+    </update>
+    
+    <update id="state1updateYESNO" parameterType="Integer">
+        update mcourse set msu1per=ROUND(msu1/mold*100,2) where mnum=#{mnum}             
+    </update>
+    
+    <update id="state2updateYESNO" parameterType="Integer">
+        update mcourse set msu2per=ROUND(msu2/msu1*100,2) where mnum=#{mnum}             
+    </update>
+    
+     <select id="msucount" resultType="McourseVO" parameterType="Integer">
+       select * from mcourse where mnum=#{mnum}   
+   </select>
+   
+    <update id="memupdate" parameterType="McourseVO">
+        update mcourse set mday=#{mday}, mmaster=#{mmaster}, mta=#{mta}, mlocation=#{mlocation}, mold=#{mold}, msu=#{msu} where mnum=#{mnum}             
+    </update>    
+    
+      <update id="isisdata" parameterType="Integer">
+          update resume set isis=0 where num=#{num}          
+     </update>
+     
+     <update id="mcoursesuminus" parameterType="Integer">
+          update mcourse set msu=msu-1 where mnum=#{mnum}          
+     </update>
+     
+     <update id="isisinital" parameterType="Integer">
+          update mcourse set msu1=0, msu2=0, msu1per=0, msu2per=0, misis=0 where mnum=#{mnum}          
+     </update>
+     
+       <update id="mcoursesumsu" parameterType="Integer">
+          update mcourse set misis=misis+1 where mnum=#{mnum}          
+     </update>
+     
+      <update id="misismsu" parameterType="Integer">
+          update mcourse set msu=msu+misis where mnum=#{mnum}          
+     </update>
+     
+    <select id="resumedata" resultType="ResumeVO" parameterType="TeamVO">
+       select * from resume where num=#{num}
+    </select>
+   
+    <insert id="teamInsert" parameterType="TeamVO">
+       insert into team(num,lcode,mnum,name,college,ssn,team) values( 
+       #{num},
+       #{lcode},
+       #{mnum},
+       #{name},
+       #{college},
+       #{ssn},
+       #{team}
+       )    
+    </insert>     
+      
+    <delete id="teamDelete" parameterType="Integer">
+        delete from team where num=#{num}
+    </delete>    
+  
+    
+    <delete id="teamAllDelete" parameterType="TeamVO">
+        delete from team where lcode=#{lcode} and mnum=#{mnum}
+    </delete>
+    
+    <select id="getAllTeam" resultType="TeamVO" parameterType="TeamVO">
+       select * from team where lcode=#{lcode} and mnum=#{mnum} 
+    </select>
+    
+    <insert id="mentorinsert" parameterType="MentorVO">
+       insert into mentor(mtname, mtsosk, mttel, mtemail, mtmajor, mtpart, mtlevel)
+        values(#{mtname}, #{mtsosk}, #{mttel}, #{mtemail},  #{mtmajor}, #{mtpart} , #{mtlevel})      
+    </insert>
+    
+    <select id="dbnamecheck" resultType="Integer" parameterType="String">
+        select count(*) from mentor where mtname=#{mtname}
+    </select>
+    
+    <select id="mtlist" resultType="MentorVO">
+        select * from mentor
+    </select>
+    
+    <select id="cpartBynum" resultType="CareerVO" parameterType="CareerVO">
+        select * from career where cnum=#{cnum}
+    </select>
+    
+    <select id="cpartBynumUpdate"  parameterType="CareerVO">
+        update career set cpart=CONCAT(cpart,#{cpart}) where cnum=#{cnum}
+    </select>
+    
+    <insert id="cpartBynumInsert"  parameterType="CareerVO">
+        insert into career(cnum, lcode, mnum, cpart) values(#{cnum}, #{lcode}, #{mnum}, #{cpart}) 
+    </insert>
+   
+    <select id="getStudentByNum1" resultType="ResumeCareerVO" parameterType="Integer">
+	    select
+	    num,
+		r.lcode,
+		r.mnum,
+		name,
+		ssn,
+		addr,
+		tel,
+		email,
+		sex,
+		birth,
+		college,
+		major,
+		state1,
+		state2,
+		image,
+		cert,
+		isis,
+		cpart,
+		cloc,
+		cskill,
+		ccontent,
+		csave,
+		cstart,
+		cinsur
+	    from resume r, career c where r.num=c.cnum and r.num=#{cnum}
+    </select>
+   
+    <select id="cpartcancel"  parameterType="CareerVO">
+        update career set cpart=replace(cpart,#{cpart},'') where cnum=#{cnum}
+    </select>
+    
+    
+     <select id="cpartBynum1" resultType="CareerVO" parameterType="CareerVO">
+        select * from career where cnum=${cnum}
+    </select>
+    
+    <update id="cpartBynumUpdate1"  parameterType="CareerVO">
+        update career set cloc=CONCAT(cloc,#{cloc}) where cnum=#{cnum}
+    </update>
+    
+    <insert id="cpartBynumInsert1"  parameterType="CareerVO">
+        insert into career(cnum, lcode, mnum, cloc) values(#{cnum}, #{lcode}, #{mnum}, #{cloc}) 
+    </insert>
+   
+    <update id="cpartcancel1"  parameterType="CareerVO">
+        update career set cloc=replace(cloc,#{cloc},'') where cnum=#{cnum}
+    </update>
+    
+    <select id="cpartBynum2" resultType="CareerVO" parameterType="CareerVO">
+        select * from career where cnum=#{cnum}
+    </select>
+    
+    <update id="cpartBynumUpdate2"  parameterType="CareerVO">
+        update career set cskill=CONCAT(cskill,#{cskill}) where cnum=#{cnum}
+    </update>
+    
+    <insert id="cpartBynumInsert2"  parameterType="CareerVO">
+        insert into career(cnum, lcode, mnum,cskill) values(#{cnum}, #{lcode}, #{mnum}, #{cskill}) 
+    </insert>
+   
+    <update id="cpartcancel2"  parameterType="CareerVO">
+        update career set cskill=replace(cskill,#{cskill},'') where cnum=#{cnum}
+    </update>
+    
+    
+    <update id="skillcontent1"  parameterType="CareerVO">
+        update career set ccontent=#{ccontent} where cnum=#{cnum}
+    </update>
+    
+    <insert id="skillcontent2"  parameterType="CareerVO">
+        insert into career(cnum, lcode, mnum, ccontent) values(#{cnum}, #{lcode}, #{mnum}, #{ccontent}) 
+    </insert>
+    
+    
+     <update id="csave"  parameterType="CareerVO">
+        update career set csave=#{csave} where cnum=#{cnum}
+     </update>
+     
+     <update id="cstart"  parameterType="CareerVO">
+        update career set cstart=#{cstart} where cnum=#{cnum}
+     </update>
+     
+     <update id="cinsur"  parameterType="CareerVO">
+        update career set cinsur=#{cinsur} where cnum=#{cnum}
+     </update>
+     
+      <update id="addr"  parameterType="ResumeVO">
+        update resume set addr=#{addr} where num=#{num}
+     </update>
+     
+      <select id="careerState2updateYES" resultType="CareerVO" parameterType="Integer">
+        select * from career where cnum=#{num}
+      </select>
+      
+      
+   </mapper>

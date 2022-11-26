@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <script type="text/javascript" src="jquery-1.4.3.min.js"></script>
+
+    <script type="text/javascript" src="jquery-ui.js"></script>
+ 
+   <style type="text/css">
+     body{
+       font-size:12px;
+    }
+    .left{
+    width: 120px;
+    background: #c7defa;
+    border: 2px solid #7da4fa;
+    float: left;
+    min-height: 600px;
+}
+ a {
+     background-color: transparent;
+     text-decoration: none;
+   }
+
+li{
+   font-weight:bold;
+}
+
+h2{
+    margin: 5px 0 2px 0;
+    font-size: 1.2em;
+}
+#cart{
+    min-height: 400px;
+    width: 118px;
+    border: 1px solid red;
+}
+#cart.hover{
+    border: 1px solid red;
+}
+#cart1{
+    min-height: 400px;
+    width: 118px;
+    border: 1px solid blue;
+}
+#cart1.hover{
+    border: 1px solid red;
+}
+#cart2{
+    min-height: 400px;
+    width: 118px;
+    border: 1px solid purple;
+}
+#cart2.hover{
+    border: 1px solid red;
+}
+#cart3{
+    min-height: 400px;
+    width: 118x;
+    border: 1px solid orange;
+}
+#cart3.hover{
+    border: 1px solid red;
+}
+table.listing,
+.drag-cart-item table{
+    width: 500px;
+}
+table.listing, table.listing td, table.listing th ,
+.drag-cart-item table, .drag-cart-item td{
+    border-collapse: collapse;
+    border: 1px solid gray;
+    padding: 5px;
+}
+.ln{
+   text-decoration:line-through;
+}
+table td.name{
+    cursor: move;
+}
+table th{
+    background:#E6E6E6;
+}
+.drag-cart-item{
+    background: #FFF;
+}
+  </style>
+  <title>사랑의 섬김교회</title>
+
+<script type='text/javascript'>//<![CDATA[
+var count=0;
+$(window).load(function(){
+var table = $('table');
+table.find('tr td.name').bind('mousedown', function() {
+    table.disableSelection();
+}).bind('mouseup', function() {
+    table.enableSelection();
+}).draggable({
+    helper: function(event) {
+        return $('<div class="drag-cart-item"><table></table></div>').find('table').append($(event.target).closest('td').clone()).end().insertAfter(table);
+    },
+    cursorAt: {
+        left: -5,
+        bottom: 5
+    },
+    cursor: 'move',
+    distance: 10,
+    delay: 100,
+    scope: 'cart-item',
+    revert: 'invalid'
+});
+
+$('#cart').droppable({
+    scope: 'cart-item',
+    activeClass: 'active',
+    hoverClass: 'hover',
+    tolerance: 'pointer',
+    drop: function(event, ui) {
+        var classid = ui.helper.find('td').attr('id');
+        $('#'+classid).css("backgroundColor","red"); 
+        var name = ui.helper.find('.name').html();
+        $('#cart .selected').append('<li id="a' + classid + '"><a href="javascript:fnDela(\''+classid+'\')"><font color=\'red\'>' + name + '</font></a></li>');
+        count=$('#cart .selected').find('li').length;
+		$('#count1').html("인원수:"+count);
+		 total();
+	 }
+ });
+$('#cart1').droppable({
+    scope: 'cart-item',
+    activeClass: 'active',
+    hoverClass: 'hover',
+    tolerance: 'pointer',
+    drop: function(event, ui) {
+        var classid = ui.helper.find('td').attr('id');
+       $('#'+classid).css("backgroundColor","blue"); 
+        var name = ui.helper.find('.name').html();
+        $('#cart1 .selected').append('<li id="b' + classid + '"><a href="javascript:fnDelb(\''+classid+'\')"><font color=\'blue\'>' + name + '</font></a></li>');
+        count=$('#cart1 .selected').find('li').length;
+		$('#count2').html("인원수:"+count);
+		 total();
+	 }
+ });
+$('#cart2').droppable({
+    scope: 'cart-item',
+    activeClass: 'active',
+    hoverClass: 'hover',
+    tolerance: 'pointer',
+    drop: function(event, ui) {
+        var classid = ui.helper.find('td').attr('id');
+        $('#'+classid).css("backgroundColor","purple"); 
+        var name = ui.helper.find('.name').html();
+        $('#cart2 .selected').append('<li id="c' + classid + '"><a href="javascript:fnDelc(\''+classid+'\')"><font color=\'purple\'>' + name + '</font></a></li>');
+        count=$('#cart2 .selected').find('li').length;
+		$('#count3').html("인원수:"+count);
+		 total();
+	 }
+ });
+$('#cart3').droppable({
+    scope: 'cart-item',
+    activeClass: 'active',
+    hoverClass: 'hover',
+    tolerance: 'pointer',
+    drop: function(event, ui) {
+        var classid = ui.helper.find('td').attr('id');
+        $('#'+classid).css("backgroundColor","orange"); 
+        var name = ui.helper.find('.name').html();
+        $('#cart3 .selected').append('<li id="d' + classid + '"><a href="javascript:fnDeld(\''+classid+'\')"><font color=\'orange\'>' + name + '</font></a></li>');
+        count=$('#cart3 .selected').find('li').length;
+		$('#count4').html("인원수:"+count);
+		 total();
+	 }
+ });
+
+});//]]> 
+function total(){
+var c1=$('#count1').html();
+var c2=$('#count2').html();
+var c3=$('#count3').html();
+var c4=$('#count4').html();
+var tot=parseInt(c1.split(":")[1])+parseInt(c2.split(":")[1])+parseInt(c3.split(":")[1])+parseInt(c4.split(":")[1]);
+$('#tot').html("총배정인원:"+tot);
+}
+ function fnDela(classid){
+   alert(classid);
+   $('#a'+classid).remove();
+   count=$('#cart .selected').find('li').length;
+   $('#count1').html("인원수:"+count);
+   $('#'+classid).css("backgroundColor",""); 
+    total();
+ }
+ function fnDelb(classid){
+   alert(classid);
+   $('#b'+classid).remove();
+     count=$('#cart1 .selected').find('li').length;
+   $('#count2').html("인원수:"+count);
+   $('#'+classid).css("backgroundColor",""); 
+    total();
+ }
+ function fnDelc(classid){
+   alert(classid);
+   $('#c'+classid).remove();
+     count=$('#cart2 .selected').find('li').length;
+   $('#count3').html("인원수:"+count);
+   $('#'+classid).css("backgroundColor",""); 
+    total();
+ }
+ function fnDeld(classid){
+   alert(classid);
+   $('#d'+classid).remove();
+     count=$('#cart3 .selected').find('li').length;
+   $('#count4').html("인원수:"+count);
+   $('#'+classid).css("backgroundColor",""); 
+    total();
+ }
+</script>
+</head>
+
+<body>
+ <h2><div id='tot'>총배정인원:0</div>[팀 배정 프로그램(오른쪽에있는 이름을 드래그하여 팀에 놓는다/ 삭제시 클릭하여 삭제한다)]</h2>
+ <table>
+ <tr  style="vertical-align: top;">
+	<td>
+	 <div class="left"> 
+	    <h2>☞사랑(A)</h2> 
+	    <div id="cart"> 
+	        <ol class="selected"> 
+	        </ol> 
+	    </div> 
+		<br/>
+		<div id="count1">인원수:0</div>
+	  </div> 
+	  </td>
+	  <td>
+	  <div class="left"> 
+	    <h2>☞섬김(B)</h2> 
+	    <div id="cart1"> 
+	          <ol class="selected"> 
+	        </ol> 
+	    </div> 
+		<br/>
+		<div id="count2">인원수:0</div>
+	  </div>
+	  </td>
+	  <td>
+	  <div class="left"> 
+	    <h2>☞순종팀(C)</h2> 
+	    <div id="cart2"> 
+	           <ol class="selected"> 
+	        </ol> 
+	    </div> 
+			<br/>
+		<div id="count3">인원수:0</div>
+	  </div> 
+	  </td>
+	  <td>
+	  <div class="left"> 
+	    <h2>☞믿음(D)</h2> 
+	    <div id="cart3"> 
+	            <ol class="selected"> 
+	        </ol> 
+	    </div> 
+			<br/>
+		<div id="count4">인원수:0</div>
+	  </div>  
+    </td>
+    <td>   
+    <table class="listing"> 
+        <thead> 
+            <tr> 
+               
+               <th colspan="2">윤행중목장</th>
+               <th colspan="2">김선욱목장</th>
+               <th colspan="2">한송범목장</th>
+            </tr> 
+            <tr> 
+             
+                <th>번호</th><th>이름</th>   
+                <th>번호</th><th>이름</th> 
+                <th>번호</th><th>이름</th> 
+            </tr> 
+        </thead> 
+        <tbody> 
+            <tr>                
+                           
+                <td>1</td><td id="classid-2" class="name">백근호(행)</td> 
+                <td>1</td><td id="classid-3" class="name">신승환(선)</td> 
+                <td>1</td><td id="classid-4" class="name">노동채(송)</td> 
+            </tr> 
+            <tr>                
+                         
+                <td>2</td><td id="classid-6" class="name">김명호(행)</td> 
+                <td>2</td><td id="classid-7" class="name">조정석(선)</td> 
+                <td>2</td><td id="classid-8" class="name">송남준(송)</td> 
+            </tr> 
+            <tr>                
+                      
+                <td>3</td><td id="classid-10" class="name">오기록(행)</td> 
+                <td>3</td><td id="classid-11" class="name">이남석(선)</td> 
+                <td>3</td><td id="classid-12" class="name">김태훈(송)</td> 
+            </tr> 
+            <tr>                
+                        
+                <td>4</td><td id="classid-14" class="name">송평석(행)</td> 
+                <td>4</td><td id="classid-15" class="name">강윤구(선)</td> 
+                <td>4</td><td id="classid-16" class="name">김지훈(송)</td> 
+            </tr> 
+             <tr>                
+                           
+                <td>5</td><td id="classid-18" class="name">이덕희(행)</td> 
+                <td>5</td><td id="classid-19" class="name">김정선(선)</td> 
+                <td>5</td><td id="classid-20" class="name">남상기(송)</td> 
+            </tr> 
+            <tr>                
+                           
+                <td>6</td><td id="classid-22" class="name">전남진(행)</td> 
+                <td>6</td><td id="classid-23" class="name">김유성(선)</td> 
+                <td>6</td><td id="classid-24" class="name">정종대(송)</td> 
+            </tr> 
+            <tr>                
+                        
+                <td>7</td><td id="classid-26" class="name">김대훈(행)</td> 
+                <td>7</td><td id="classid-27" class="name">김석우(선)</td> 
+                <td>7</td><td id="classid-28" class="name">박삼일(송)</td> 
+            </tr> 
+            <tr>                
+                     
+                <td>8</td><td id="classid-30" class="name">김정성(행)</td> 
+                <td>8</td><td id="classid-31" class="name">김영현(선)</td> 
+                <td>8</td><td id="classid-32" class="name">김홍용(송)</td> 
+            </tr> 
+            <tr>                
+                        
+                <td>9</td><td id="classid-34" class="name">박매일(행)</td> 
+                <td>9</td><td id="classid-35" class="name">이충근(선)</td> 
+                <td>9</td><td id="classid-36" class="name">채강(송)</td> 
+            </tr> 
+            <tr>                
+                        
+                <td>10</td><td id="classid-38" class="name">이희연(행)</td> 
+                <td>10</td><td id="classid-39" class="name">장병수(선)</td> 
+                <td>10</td><td id="classid-40" class="name">나훈(송)</td> 
+            </tr> 
+            <tr>                
+                      
+                <td>11</td><td id="classid-42" class="name">정현호(행)</td> 
+                <td>11</td><td id="classid-43" class="name">김덕의(선)</td> 
+                <td>11</td><td id="classid-44" class="name">이강호(송)</td> 
+            </tr> 
+            <tr>                
+                        
+                <td>12</td><td id="classid-46" class="name">강신우(행)</td> 
+                <td>12</td><td id="classid-47" class="name">오세준(선)</td> 
+                <td>12</td><td id="classid-48" class="name">한보경(송)</td> 
+            </tr> 
+            <tr>                
+                         
+                <td>13</td><td id="classid-50" class="name">최칠규(행)</td> 
+                <td>13</td><td id="classid-51" class="name">지창휴(선)</td> 
+                <td>13</td><td id="classid-52" class="name">박주형(송)</td> 
+            </tr> 
+            <tr>                
+                       
+                <td>14</td><td id="classid-54" class="name">국봉수(행)</td> 
+                <td>14</td><td id="classid-55" class="name">전대성(선)</td> 
+                <td>14</td><td id="classid-56" class="name">최낙훈(송)</td> 
+            </tr> 
+            <tr>                
+                        
+                <td>15</td><td id="classid-58" class="name">남홍기(행)</td> 
+                <td>15</td><td id="classid-59" class="name">한덕운(선)</td> 
+                <td>15</td><td id="classid-60" class="name">허윤진(송)</td> 
+            </tr> 
+            <tr>                
+                        
+                <td>16</td><td id="classid-62" class="name">정홍일(행)</td> 
+                <td>16</td><td id="classid-63" class="name">노중문(선)</td> 
+                <td>16</td><td id="classid-64" class="name">차재우(송)</td> 
+            </tr> 
+            <tr>                
+                   
+                <td>17</td><td id="classid-66" class="name">정광연(행)</td> 
+                <td>17</td><td id="classid-67" class="name">최시원(선)</td> 
+                <td>17</td><td id="classid-68" class="name">배형국(송)</td> 
+            </tr> 
+            <tr>                
+                   
+                <td>18</td><td id="classid-70" class="name">장용수(행)</td> 
+                <td>18</td><td id="classid-71" class="name">배경석(선)</td> 
+                <td>18</td><td id="classid-72" class="name">김준호(송)</td> 
+            </tr> 
+            <tr>                
+                         
+                <td>19</td><td id="classid-74" class="name">김창호(행)</td> 
+                <td>19</td><td id="classid-75" class="name">임규만(선)</td> 
+                <td>19</td><td id="classid-76" class="name">최하준(송)</td> 
+            </tr> 
+            <tr>           
+                         
+                <td>20</td><td id="classid-78" class="name">선연택(행)</td> 
+                <td>20</td><td id="classid-79" class="name">민명량(선)</td> 
+                <td>20</td><td id="classid-80" class="name">박성운(송)</td> 
+            </tr>  
+			<tr>                
+                     
+                <td>21</td><td id="classid-82" class="name">박준영(행)</td> 
+                <td>21</td><td id="classid-83" class="name">김선욱(선)</td> 
+                <td>21</td><td id="classid-84" class="name">정성엽(송)</td> 
+            </tr>   
+			<tr>                
+                    
+                <td>22</td><td id="classid-86" class="name">이승복(행)</td> 
+                <td>22</td><td id="classid-87" class="name">이창화(선)</td> 
+                <td>22</td><td id="classid-88" class="name">김현철(송)</td> 
+            </tr>
+			<tr>                
+                       
+                <td>23</td><td id="classid-90" class="name">김원효(행)</td> 
+                <td>-</td><td id="classid-91" class="name">-</td> 
+                <td>23</td><td id="classid-92" class="name">한송범(송)</td> 
+            </tr>
+			<tr>                
+            
+                <td>24</td><td id="classid-94" class="name">정석진(행)</td> 
+                <td>-</td><td id="classid-95" class="name">-</td> 
+                <td>-</td><td id="classid-96" class="name">_</td> 
+            </tr>
+			<tr>                
+                <td>25</td><td id="classid-98" class="name">김원형(행)</td> 
+                <td>-</td><td id="classid-99" class="name">-</td> 
+                <td>-</td><td id="classid-100" class="name">-</td> 
+            </tr>
+			<tr>                
+              
+                <td>26</td><td id="classid-102" class="name">김대선(행)</td> 
+                <td>-</td><td id="classid-103" class="name">-</td> 
+                <td>-</td><td id="classid-104" class="name">-</td> 
+            </tr>
+			<tr>                
+                   
+                <td>27</td><td id="classid-106" class="name">오영록(행)</td> 
+                <td>-</td><td id="classid-107" class="name">-</td> 
+                <td>-</td><td id="classid-108" class="name">-</td> 
+            </tr>
+			<tr>  
+                <td>28</td><td id="classid-110" class="name">조종남(행)</td> 
+                <td>-</td><td id="classid-111" class="name">-</td> 
+                <td>-</td><td id="classid-112" class="name">-</td> 
+            </tr>
+			<tr>  
+                <td>29</td><td id="classid-114" class="name">허재용(행)</td> 
+                <td>-</td><td id="classid-115" class="name">-</td> 
+                <td>-</td><td id="classid-116" class="name">-</td> 
+            </tr>
+			<tr>  
+                <td>30</td><td id="classid-118" class="name">김광용(행)</td> 
+                <td>-</td><td id="classid-119" class="name">-</td> 
+                <td>-</td><td id="classid-120" class="name">-</td> 
+            </tr>
+			<tr>  
+                <td>31</td><td id="classid-122" class="name">백종일(행)</td> 
+                <td>-</td><td id="classid-123" class="name">-</td> 
+                <td>-</td><td id="classid-124" class="name">-</td> 
+            </tr>
+			<tr>  
+                <td>32</td><td id="classid-126" class="name">이형권(행)</td> 
+                <td>-</td><td id="classid-127" class="name">-</td> 
+                <td>-</td><td id="classid-128" class="name">-</td> 
+            </tr>
+			<tr>  
+                <td>33</td><td id="classid-130" class="name">윤행중(행)</td> 
+                <td>-</td><td id="classid-131" class="name">-</td> 
+                <td>-</td><td id="classid-132" class="name">-</td> 
+            </tr>
+        </tbody> 
+      </table>
+     </td>
+    </tr>
+</body>
+</html>
+

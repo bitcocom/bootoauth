@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+      <typeAlias type="kr.smhrd.model.ResumeVO" alias="ResumeVO"/>
+      <typeAlias type="kr.smhrd.model.LcourseVO" alias="LcourseVO"/>
+      <typeAlias type="kr.smhrd.model.McourseVO" alias="McourseVO"/>
+      <typeAlias type="kr.smhrd.model.SangdamVO" alias="SangdamVO"/>
+      <typeAlias type="kr.smhrd.model.TeamVO" alias="TeamVO"/>
+      <typeAlias type="kr.smhrd.model.MentorVO" alias="MentorVO"/>
+      <typeAlias type="kr.smhrd.model.CareerVO" alias="CareerVO"/>
+      <typeAlias type="kr.smhrd.model.ResumeCareerVO" alias="ResumeCareerVO"/>
+      <typeAlias type="kr.smhrd.model.Table1VO" alias="Table1VO"/>
+      <typeAlias type="kr.smhrd.model.Table2VO" alias="Table2VO"/>
+      <typeAlias type="kr.smhrd.model.Table3VO" alias="Table3VO"/>
+       <typeAlias type="kr.smhrd.model.Table4VO" alias="Table4VO"/>
+       <typeAlias type="kr.smhrd.model.Table5VO" alias="Table5VO"/>
+       <typeAlias type="kr.smhrd.model.Table6VO" alias="Table6VO"/>
+       <typeAlias type="kr.smhrd.model.Table7VO" alias="Table7VO"/> 
+      <typeAlias type="kr.smhrd.model.SuperVO" alias="SuperVO"/> 
+      <typeAlias type="kr.smhrd.model.SuperVO2" alias="SuperVO2"/>   
+      <typeAlias type="kr.smhrd.model.SuperVO3" alias="SuperVO3"/>   
+      <typeAlias type="kr.smhrd.model.SuperVO4" alias="SuperVO4"/>   
+      <typeAlias type="kr.smhrd.model.SuperVO5" alias="SuperVO5"/>
+      <typeAlias type="kr.smhrd.model.SuperVO6" alias="SuperVO6"/>
+      <typeAlias type="kr.smhrd.model.SuperVO7" alias="SuperVO7"/>
+  </typeAliases>
+</configuration>
